@@ -6,16 +6,23 @@ import {db} from '../firebase/config'
 import './create.css'
 
 export default function Create() {  
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
-  const [description, setDescription] = useState('')
+  //const [title, setTitle] = useState('')
+  //const [author, setAuthor] = useState('')
+  //const [description, setDescription] = useState('')
+  
+  const title = useRef(null);
+  const description = useRef(null);
+  const author = useRef(null);
   
   const navigate = useNavigate()
   
 
   const handleSubmit = async (e) => {
     e.preventDefault()   
-    const article = {title,author,description};
+    const article = {
+        title: title.current.value,
+        author: author.current.value,
+        description: description.current.value};
     const ref = collection(db, 'articles')
     await addDoc(ref,article)
 
@@ -35,8 +42,9 @@ export default function Create() {
           <span>Title:</span>
           <input 
             type="text" 
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
+            //onChange={(e) => setTitle(e.target.value)}
+            //value={title}
+            ref = {title}
             required
           />
         </label>
@@ -45,8 +53,9 @@ export default function Create() {
           <span>Author:</span>
           <input 
             type="text" 
-            onChange={(e) => setAuthor(e.target.value)}
-            value={author}
+            //onChange={(e) => setAuthor(e.target.value)}
+            //value={author}
+            ref = {author}
             required
           />
         </label>
@@ -54,8 +63,9 @@ export default function Create() {
         <label>
           <span>Description:</span>
           <textarea 
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
+            //onChange={(e) => setDescription(e.target.value)}
+            //value={description}
+            ref = {description}
             required
           />
         </label>
